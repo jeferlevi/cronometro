@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link href="./styles.css" rel="stylesheet">
+    <title>Cronômetro</title>
+</head>
+
+<body>
+    <img src="./missao-3.png">
+    <div id="caixa-numero">
+        <span class="numeros" id="horas">00</span>
+        <span class="numeros">:</span>
+        <span class="numeros" id="minutos">00</span>
+        <span class="numeros">:</span>
+        <span class="numeros" id="segundos">00</span>
+        <span class="numeros">:</span>
+        <span class="numeros numero-verde" id="mili">00</span>
+    </div>
+    <div id="caixa-botoes">
+        <button class="botoes" id="start">Start</button>
+        <button class="botoes" id="stop">Stop</button>
+        <button class="botoes" id="reset">Reset</button>
+    </div>
+
+
+</body>
+<script>
+    let btnReset = document.getElementById("reset")
+    let btnStop = document.getElementById("stop")
+    let btnStart = document.getElementById("start")
+    let horas = document.getElementById("horas")
+    let minutos = document.getElementById("minutos")
+    let segundos = document.getElementById("segundos")
+    let mili = document.getElementById("mili")
+
+    let startTimer
+    let ms = "00"
+    let sg = "00"
+    let mn = "00"
+    let hr = "00"
+
+    function start() {
+        startTimer = setInterval(function () {
+            ms++
+            if (ms === 100) {
+                sg++
+                if (sg < 10) {
+                    sg = "0" + sg
+                }
+                ms = 00
+            }
+            if (sg === 60) {
+                mn++
+                if (mn < 10) {
+                    mn = "0" + mn
+                }
+                sg = 00
+
+            }
+            if (mn === 60) {
+                hr++
+                if (hr < 10) {
+                    hr = "0" + hr
+                }
+                mn = 00
+            }
+            atualizaValor()
+
+        }, 10);
+    }
+    function stop() {
+        clearInterval(startTimer)
+    }
+    function reset() {
+        clearInterval(startTimer)
+        ms = "00"
+        sg = "00"
+        mn = "00"
+        hr = "00"
+        atualizaValor()
+
+
+    }
+    function atualizaValor() {
+        mili.innerHTML = ms
+        segundos.innerHTML = sg
+        minutos.innerHTML = mn
+        horas.innerHTML = hr
+
+    }
+
+    btnStart.addEventListener("click", start)
+    btnStop.addEventListener("click", stop)
+    btnReset.addEventListener("click", reset)
+
+</script>
+
+</html>
